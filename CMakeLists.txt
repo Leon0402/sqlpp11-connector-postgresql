@@ -27,24 +27,22 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 project(sqlpp11-connector-postgresql VERSION 0.1 LANGUAGES CXX)
 
-option(ENABLE_TESTS "Build unit tests" ON)
+include(CTest)
+
 option(CODE_COVERAGE "Enable coverage reporting" OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(ConfigPackageLocation lib/cmake/sqlpp-connector-postgresql)
 
-# Try to find the necessary files on the system installation if not already loaded via add_subdirectory() from parent project
-if (NOT TARGET sqlpp11)
-    find_package(Sqlpp11 REQUIRED)
-endif()
+add_subdirectory(dependencies)
 find_package(PostgreSQL REQUIRED)
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
 add_subdirectory(src)
 
-if (ENABLE_TESTS)
+if (BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
 endif()
