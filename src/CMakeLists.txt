@@ -37,6 +37,7 @@ add_library(sqlpp11-connector-postgresql STATIC
 	detail/prepared_statement_handle.cpp
 	result.cpp
 )
+add_library(sqlpp11::postgresql ALIAS sqlpp11-connector-postgresql)
 
 add_library(sqlpp11-connector-postgresql-dynamic SHARED
 	bind_result.cpp
@@ -48,6 +49,7 @@ add_library(sqlpp11-connector-postgresql-dynamic SHARED
 	detail/dynamic_libpq.cpp
 	result.cpp
 )
+add_library(sqlpp11::postgresql-dynamic ALIAS sqlpp11-connector-postgresql-dynamic)
 
 if (WIN32)
 	get_filename_component(POSTGRESQL_LIB_FILE ${PostgreSQL_LIBRARIES} NAME)
