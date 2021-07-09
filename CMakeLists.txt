@@ -24,21 +24,18 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14)
 project(sqlpp11-connector-postgresql VERSION 0.1 LANGUAGES CXX)
 
 include(CTest)
 
 option(CODE_COVERAGE "Enable coverage reporting" OFF)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
+# TO DO: Use gnuinstalldirs
 set(ConfigPackageLocation lib/cmake/sqlpp-connector-postgresql)
 
 add_subdirectory(dependencies)
 find_package(PostgreSQL REQUIRED)
-
-include_directories("${PROJECT_SOURCE_DIR}/include")
 
 add_subdirectory(src)
 
@@ -46,13 +43,3 @@ if (BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
 endif()
-
-install(DIRECTORY "${PROJECT_SOURCE_DIR}/include/sqlpp11" DESTINATION include COMPONENT Devel)
-install(
-  FILES
-    cmake/Sqlpp-connector-postgresqlConfig.cmake
-  DESTINATION
-    ${ConfigPackageLocation}
-  COMPONENT
-    Devel
-)
