@@ -126,6 +126,18 @@ namespace sqlpp
       *value = _handle->result.getValue<unsigned long long>(_handle->count, index);
     }
 
+    void bind_result_t::_bind_unsigned_integral_result(size_t _index, uint64_t* value, bool* is_null)
+    {
+      auto index = static_cast<int>(_index);
+      if (_handle->debug())
+      {
+        std::cerr << "PostgreSQL debug: binding integral result at index: " << index << std::endl;
+      }
+
+      *is_null = _handle->result.isNull(_handle->count, index);
+      *value = _handle->result.getValue<unsigned long long>(_handle->count, index);
+    }
+
     void bind_result_t::_bind_text_result(size_t _index, const char** value, size_t* len)
     {
       auto index = static_cast<int>(_index);
